@@ -20,8 +20,11 @@
 	- [Update photo](#update-photo)
 	
 - [Property](#property)
+	- [Add a property as favorite](#add-a-property-as-favorite)
 	- [Create property](#create-property)
+	- [Delete a property as a favorite](#delete-a-property-as-a-favorite)
 	- [Delete property](#delete-property)
+	- [Retrieve the favorite properties of a user](#retrieve-the-favorite-properties-of-a-user)
 	- [Retrieve properties](#retrieve-properties)
 	- [Retrieve properties of a user](#retrieve-properties-of-a-user)
 	- [Retrieve property](#retrieve-property)
@@ -212,6 +215,19 @@
 
 # Property
 
+## Add a property as favorite
+
+
+
+	POST /properties/fav/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
 ## Create property
 
 
@@ -235,6 +251,19 @@
 | province			| 			|  <p>Property's province.</p>							|
 | loc			| 			|  <p>Property's loc.</p>							|
 
+## Delete a property as a favorite
+
+
+
+	DELETE /properties/fav/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
 ## Delete property
 
 
@@ -247,6 +276,24 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve the favorite properties of a user
+
+
+
+	GET /properties/favs
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
 
 ## Retrieve properties
 
@@ -277,7 +324,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
