@@ -1,17 +1,31 @@
 package com.example.inmoapp.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.inmoapp.Generator.ServiceGenerator;
+import com.example.inmoapp.Generator.UtilToken;
+import com.example.inmoapp.Generator.UtilUser;
+import com.example.inmoapp.MainActivity;
+import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.R;
+import com.example.inmoapp.Services.AuthService;
+
+import okhttp3.Credentials;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +92,13 @@ public class LoginFragment extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnToRegister = view.findViewById(R.id.btnToSignup);
 
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doLogin();
+            }
+        });
+
         btnToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,4 +139,50 @@ public class LoginFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void navegarRegistro();
     }
+
+    public void doLogin() {
+
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        String credentials = Credentials.basic(email, password);
+
+        if (validarString(email) && validarString(password)) {
+
+            AuthService service = ServiceGenerator.createService(AuthService.class);
+            Call<LoginResponse> call = service.doLogin(credentials);
+
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.code() != 201) {
+                        // error
+                        Log.e("RequestError", response.message());
+                        Toast.makeText(getContext(), "Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        UtilToken.setToken(getActivity(), response.body().getToken());
+                        UtilUser.setUserInfo(getActivity(), response.body().getUser());
+
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Log.e("NetworkFailure", t.getMessage());
+                    Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+
+            Toast.makeText(getContext(), "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Boolean validarString(String texto) {
+        return texto != null && texto.trim().length() > 0;
+    }
+
 }
