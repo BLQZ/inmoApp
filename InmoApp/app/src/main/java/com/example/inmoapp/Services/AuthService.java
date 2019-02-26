@@ -24,7 +24,7 @@ public interface AuthService {
     Call<User> updatePass(@Header("Authorization") String authorization, @Path("id") String id, @Body PassDto pass);
 
     @Multipart
-    @POST("/users/android")
+    @POST("/users")
     Call<LoginResponse> doRegister(@Part MultipartBody.Part picture,
                                    @Part("email") RequestBody email,
                                    @Part("password") RequestBody password,

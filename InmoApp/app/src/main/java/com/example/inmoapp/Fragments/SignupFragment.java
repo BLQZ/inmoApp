@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.UtilUser;
+import com.example.inmoapp.InmoActivity;
 import com.example.inmoapp.MainActivity;
 import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.R;
@@ -200,7 +201,7 @@ public class SignupFragment extends Fragment {
                                 Log.d("Uploaded", "Éxito");
                                 Log.d("Uploaded", response.body().toString());
                                 UtilUser.setUserInfo(getActivity(), response.body().getUser());
-                                startActivity(new Intent(getActivity(), MainActivity.class));
+                                startActivity(new Intent(getActivity(), InmoActivity.class));
                             } else {
                                 Log.e("Upload error", response.errorBody().toString());
                             }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.UtilToken;
 import com.example.inmoapp.Generator.UtilUser;
+import com.example.inmoapp.InmoActivity;
 import com.example.inmoapp.MainActivity;
 import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.R;
@@ -165,7 +166,7 @@ public class LoginFragment extends Fragment {
                         UtilToken.setToken(getActivity(), response.body().getToken());
                         UtilUser.setUserInfo(getActivity(), response.body().getUser());
 
-                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        startActivity(new Intent(getActivity(), InmoActivity.class));
                     }
                 }
 
