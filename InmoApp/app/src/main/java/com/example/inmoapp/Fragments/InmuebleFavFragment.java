@@ -1,6 +1,7 @@
 package com.example.inmoapp.Fragments;
 
 import android.content.Context;
+import android.net.Credentials;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.inmoapp.Adapter.MyInmuebleFavRecyclerViewAdapter;
 import com.example.inmoapp.Adapter.MyInmuebleRecyclerViewAdapter;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.TipoAutenticacion;
@@ -35,28 +37,28 @@ import retrofit2.Response;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class InmuebleFragment extends Fragment {
+public class InmuebleFavFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private InmuebleListener mListener;
-    private List<Inmueble> inmuebleList;
-    private MyInmuebleRecyclerViewAdapter adapter;
+    private List<Inmueble> inmuebleFavList;
+    private MyInmuebleFavRecyclerViewAdapter adapter;
     private Context ctx;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public InmuebleFragment() {
+    public InmuebleFavFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static InmuebleFragment newInstance(int columnCount) {
-        InmuebleFragment fragment = new InmuebleFragment();
+    public static InmuebleFavFragment newInstance(int columnCount) {
+        InmuebleFavFragment fragment = new InmuebleFavFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -75,24 +77,22 @@ public class InmuebleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inmueble_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_inmueblefav_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            ctx = view.getContext();
+            Context context = view.getContext();
+            /*String bearerAuthorization = "Bearer " + UtilToken.getToken(context);*/
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(ctx, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            inmuebleList = new ArrayList<>();
+            inmuebleFavList = new ArrayList<>();
 
-            /**
-             * RELLENAR inmuebleList
-             */
-            InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
-            Call<ResponseContainer<Inmueble>> call = service.getListInmuebleAuth();
+            InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(context), TipoAutenticacion.JWT);
+            Call<ResponseContainer<Inmueble>> call = service.getListFavsInmueble();
 
             call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
 
@@ -101,11 +101,11 @@ public class InmuebleFragment extends Fragment {
                     if (response.code() != 200) {
                         Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
                     } else {
-                        inmuebleList = response.body().getRows();
+                        inmuebleFavList = response.body().getRows();
 
-                        adapter = new MyInmuebleRecyclerViewAdapter(
+                        adapter = new MyInmuebleFavRecyclerViewAdapter(
                                 ctx,
-                                inmuebleList,
+                                inmuebleFavList,
                                 mListener
                         );
                         recyclerView.setAdapter(adapter);

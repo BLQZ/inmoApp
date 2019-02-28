@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.inmoapp.Fragments.InmuebleFavFragment;
 import com.example.inmoapp.Fragments.InmuebleFragment;
 import com.example.inmoapp.Fragments.LoginFragment;
 import com.example.inmoapp.Listener.InmuebleListener;
@@ -28,7 +29,10 @@ public class InmoActivity extends AppCompatActivity implements InmuebleListener 
                             .commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    /*mTextMessage.setText(R.string.title_dashboard);*/
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.contenedor, new InmuebleFavFragment())
+                            .commit();
                     return true;
                 case R.id.navigation_notifications:
                     /*mTextMessage.setText(R.string.title_notifications);*/

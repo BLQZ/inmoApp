@@ -14,6 +14,8 @@ public class Inmueble {
     private String city;
     private String province;
     private String loc;
+    private String[] photos;
+    private boolean isFav;
 
     public Inmueble() {
     }
@@ -32,6 +34,43 @@ public class Inmueble {
         this.city = city;
         this.province = province;
         this.loc = loc;
+    }
+
+    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms,
+                    Category categoryId, String adress, String zipcode, String city, String province,
+                    String loc, String[] photos) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.rooms = rooms;
+        this.categoryId = categoryId;
+        this.adress = adress;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.province = province;
+        this.loc = loc;
+        this.photos = photos;
+    }
+
+    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms,
+                    Category categoryId, String adress, String zipcode, String city, String province,
+                    String loc, String[] photos, boolean isFav) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.rooms = rooms;
+        this.categoryId = categoryId;
+        this.adress = adress;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.province = province;
+        this.loc = loc;
+        this.photos = photos;
+        this.isFav = isFav;
     }
 
     public String getId() {
@@ -128,6 +167,22 @@ public class Inmueble {
 
     public void setLoc(String loc) {
         this.loc = loc;
+    }
+
+    public String[] getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String[] photos) {
+        this.photos = photos;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 
     @Override
