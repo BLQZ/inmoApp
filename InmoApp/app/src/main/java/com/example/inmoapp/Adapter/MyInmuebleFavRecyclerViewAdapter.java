@@ -47,14 +47,14 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
         holder.nombre.setText(mValues.get(position).getTitle());
         holder.address.setText(mValues.get(position).getAdress());
 
-        /*if(holder.mItem.getPhotos() == null){
+        if(holder.mItem.getPhotos() == null){
             holder.imageView.setImageResource(R.drawable.ic_home_black_24dp);
         } else {
             Glide
-                    .with(contexto)
+                    .with(holder.mView.getContext())
                     .load(holder.mItem.getPhotos()[0])
                     .into(holder.imageView);
-        }*/
+        }
 
         /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

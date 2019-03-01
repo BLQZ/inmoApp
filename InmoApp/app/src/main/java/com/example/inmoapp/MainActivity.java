@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity implements InmuebleListener 
         f = findViewById(R.id.contenedor);
 
 
-        f.setOnClickListener(new View.OnClickListener() {
+        /*f.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent session = new Intent(getApplicationContext(), SessionActivity.class);
                 startActivity(session);
             }
-        });
+        });*/
 
         /*btnAccessLogin = findViewById(R.id.btnAccessLogin);
 

@@ -51,24 +51,26 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
         holder.nombre.setText(mValues.get(position).getTitle());
         holder.address.setText(mValues.get(position).getAdress());
 
-        /*if(holder.mItem.getPhotos() == null){
+        if(holder.mItem.getPhotos() == null){
             holder.imageView.setImageResource(R.drawable.ic_home_black_24dp);
         } else {
             Glide
                     .with(this.contexto)
                     .load(holder.mItem.getPhotos()[0])
                     .into(holder.imageView);
-        }*/
+        }
 
         holder.isFav.setImageResource(R.drawable.ic_favorite_border_red_24dp);
 
 
-        /*holder.isFav.setOnClickListener(new View.OnClickListener() {
+        holder.isFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent session = new Intent(contexto, SessionActivity.class);
-                contexto.startActivity(session);
+                /*Intent session = new Intent(contexto, SessionActivity.class);
+                contexto.startActivity(session);*/
+
+                v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), SessionActivity.class));
 
             }
         });
@@ -77,11 +79,13 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
             @Override
             public void onClick(View v) {
 
-                Intent session = new Intent(contexto.getApplicationContext(), SessionActivity.class);
-                contexto.startActivity(session);
+                /*Intent session = new Intent(contexto.getApplicationContext(), SessionActivity.class);
+                contexto.startActivity(session);*/
+
+                v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), SessionActivity.class));
 
             }
-        });*/
+        });
 
         /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

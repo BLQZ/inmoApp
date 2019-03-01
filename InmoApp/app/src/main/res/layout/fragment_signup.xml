@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonRegistrar"
+            android:id="@+id/btnAddInmueble"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonRegistroaLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewPreImgPerfil" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPreImg" />
 
         <EditText
             android:id="@+id/editTextNombreRegistro"
@@ -99,19 +99,19 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/SubirImagen"
-            app:layout_constraintBottom_toTopOf="@+id/buttonRegistrar"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddInmueble"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewPreImgPerfil"
-            app:layout_constraintTop_toTopOf="@+id/imageViewPreImgPerfil" />
+            app:layout_constraintStart_toEndOf="@+id/imageViewPreImg"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPreImg" />
 
         <ImageView
-            android:id="@+id/imageViewPreImgPerfil"
+            android:id="@+id/imageViewPreImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="120dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/buttonRegistrar"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddInmueble"
             app:layout_constraintEnd_toStartOf="@+id/buttonSubirImagen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPasswordRepeat"
@@ -130,7 +130,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonRegistrar" />
+            app:layout_constraintTop_toBottomOf="@+id/btnAddInmueble" />
 
     </android.support.constraint.ConstraintLayout>
 

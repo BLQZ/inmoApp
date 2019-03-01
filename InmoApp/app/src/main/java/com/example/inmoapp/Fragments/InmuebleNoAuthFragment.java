@@ -1,6 +1,7 @@
 package com.example.inmoapp.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +20,7 @@ import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.ResponseContainer;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.InmuebleService;
+import com.example.inmoapp.SessionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class InmuebleNoAuthFragment extends Fragment {
     private List<Inmueble> inmuebleList;
     private MyinmuebleNoAuthRecyclerViewAdapter adapter;
     private Context ctx;
+    private RecyclerView list;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,6 +72,14 @@ public class InmuebleNoAuthFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
+        /*list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent session = new Intent(ctx.getApplicationContext(), SessionActivity.class);
+                startActivity(session);
+            }
+        });*/
+
     }
 
     @Override
@@ -76,14 +87,16 @@ public class InmuebleNoAuthFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inmueblenoauth_list, container, false);
 
+        list = view.findViewById(R.id.list);
+
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+            ctx = view.getContext();
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(ctx, mColumnCount));
             }
             inmuebleList = new ArrayList<>();
 
@@ -120,6 +133,7 @@ public class InmuebleNoAuthFragment extends Fragment {
 
             });
         }
+
         return view;
     }
 

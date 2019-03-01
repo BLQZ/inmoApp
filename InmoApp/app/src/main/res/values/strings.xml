@@ -20,4 +20,5 @@
     <string name="listado">Viviendas</string>
     <string name="favoritas">Favoritas</string>
     <string name="opciones">Opciones</string>
+    <string name="SubirImagenInmueble">Seleccionar Imagen</string>
 </resources>

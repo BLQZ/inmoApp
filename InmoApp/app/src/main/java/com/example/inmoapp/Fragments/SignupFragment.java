@@ -19,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.UtilUser;
 import com.example.inmoapp.InmoActivity;
-import com.example.inmoapp.MainActivity;
 import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.AuthService;
@@ -99,8 +98,8 @@ public class SignupFragment extends Fragment {
         etPassword = view.findViewById(R.id.editTextPasswordRegistro);
         etPasswordRep = view.findViewById(R.id.editTextPasswordRepeat);
         btnRegistroaLogin = view.findViewById(R.id.buttonRegistroaLogin);
-        btnRegistro = view.findViewById(R.id.buttonRegistrar);
-        ivImagenPerfil = view.findViewById(R.id.imageViewPreImgPerfil);
+        btnRegistro = view.findViewById(R.id.btnAddInmueble);
+        ivImagenPerfil = view.findViewById(R.id.imageViewPreImg);
 
         btnSubirImagen = view.findViewById(R.id.buttonSubirImagen);
 
