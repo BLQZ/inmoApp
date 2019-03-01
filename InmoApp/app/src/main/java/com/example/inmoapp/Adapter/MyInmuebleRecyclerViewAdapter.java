@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.inmoapp.Fragments.InmuebleFragment;
 import com.example.inmoapp.Fragments.InmuebleFragment.OnListFragmentInteractionListener;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.TipoAutenticacion;
@@ -79,33 +80,51 @@ public class MyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueb
                 Call<ResponseContainer<Inmueble>> call;
                 if(holder.mItem.isFav()){
                     call = service.deleteToFavsProperties(holder.mItem.getId());
-                } else {
-                    call = service.addToFavsProperties(holder.mItem.getId());
-                }
 
-                call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
-                    @Override
-                    public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
-                        if (response.code() != 200) {
-                            Toast.makeText(holder.mView.getContext(), "Error en petición", Toast.LENGTH_SHORT).show();
-                        } else {
-                            /*TODO 1: PINTAR CORAZON EN EL MOMENTO
-                            * RECARGAR FRAGMENT*/
-                            if(holder.isFav.getImageAlpha()==R.drawable.ic_favorite_red_24dp){
-                                holder.isFav.setImageResource(R.drawable.ic_favorite_border_red_24dp);
+                    call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
+                        @Override
+                        public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
+                            if (response.code() != 200) {
+                                Toast.makeText(holder.mView.getContext(), "Error en petición", Toast.LENGTH_SHORT).show();
                             } else {
-                                holder.isFav.setImageResource(R.drawable.ic_favorite_red_24dp);
-                            }
+                                /*TODO 1: PINTAR CORAZON EN EL MOMENTO
+                                 * RECARGAR FRAGMENT*/
+                                holder.isFav.setImageResource(R.drawable.ic_favorite_border_red_24dp);
 
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
 
                         }
-                    }
+                    });
+                } else {
+                    call = service.addToFavsProperties(holder.mItem.getId());
 
-                    @Override
-                    public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
+                    call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
+                        @Override
+                        public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
+                            if (response.code() != 200) {
+                                Toast.makeText(holder.mView.getContext(), "Error en petición", Toast.LENGTH_SHORT).show();
+                            } else {
+                                /*TODO 1: PINTAR CORAZON EN EL MOMENTO
+                                 * RECARGAR FRAGMENT*/
+                                holder.isFav.setImageResource(R.drawable.ic_favorite_red_24dp);
 
-                    }
-                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
+
+                        }
+                    });
+
+
+                }
+
+
             }
         });
 
@@ -142,7 +161,8 @@ public class MyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueb
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView nombre, address;
-        public final ImageView imageView, isFav;
+        public final ImageView imageView;
+        public final ImageView isFav;
         public Inmueble mItem;
         public CardView cardView_inmueble;
 

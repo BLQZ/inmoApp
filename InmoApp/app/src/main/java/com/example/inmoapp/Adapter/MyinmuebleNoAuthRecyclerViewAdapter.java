@@ -1,6 +1,8 @@
 package com.example.inmoapp.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,10 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.inmoapp.Fragments.InmuebleFavFragment.OnListFragmentInteractionListener;
+import com.example.inmoapp.Fragments.InmuebleNoAuthFragment.OnListFragmentInteractionListener;
 import com.example.inmoapp.Listener.InmuebleListener;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.R;
+import com.example.inmoapp.SessionActivity;
 
 import java.util.List;
 
@@ -22,13 +25,14 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInmuebleFavRecyclerViewAdapter.ViewHolder> {
+public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<MyinmuebleNoAuthRecyclerViewAdapter.ViewHolder> {
 
     private final List<Inmueble> mValues;
     private final InmuebleListener mListener;
-    private final Context contexto;
+    private Context contexto;
 
-    public MyInmuebleFavRecyclerViewAdapter(Context ctx, List<Inmueble> items, InmuebleListener listener) {
+
+    public MyinmuebleNoAuthRecyclerViewAdapter(Context ctx, List<Inmueble> items, InmuebleListener listener) {
         contexto = ctx;
         mValues = items;
         mListener = listener;
@@ -37,7 +41,7 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_inmueblefav, parent, false);
+                .inflate(R.layout.fragment_inmueblenoauth, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,10 +55,33 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
             holder.imageView.setImageResource(R.drawable.ic_home_black_24dp);
         } else {
             Glide
-                    .with(contexto)
+                    .with(this.contexto)
                     .load(holder.mItem.getPhotos()[0])
                     .into(holder.imageView);
         }*/
+
+        holder.isFav.setImageResource(R.drawable.ic_favorite_border_red_24dp);
+
+
+        /*holder.isFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent session = new Intent(contexto, SessionActivity.class);
+                contexto.startActivity(session);
+
+            }
+        });
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent session = new Intent(contexto.getApplicationContext(), SessionActivity.class);
+                contexto.startActivity(session);
+
+            }
+        });*/
 
         /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +104,7 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
         public final View mView;
         public final TextView nombre, address;
         public final ImageView imageView;
+        public final ImageView isFav;
         public Inmueble mItem;
         public CardView cardView_inmueble;
 
@@ -87,6 +115,7 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
             address = (TextView) view.findViewById(R.id.textView_address);
             imageView = view.findViewById(R.id.imageViewInmueble);
             cardView_inmueble = view.findViewById(R.id.cardView_inmueble);
+            isFav = view.findViewById(R.id.isFav);
         }
 
         @Override
