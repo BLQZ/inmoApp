@@ -15,19 +15,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.TipoAutenticacion;
 import com.example.inmoapp.Generator.UtilToken;
 import com.example.inmoapp.Generator.UtilUser;
+import com.example.inmoapp.Model.Category;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.InmuebleDto;
+import com.example.inmoapp.Model.LoginResponse;
+import com.example.inmoapp.Model.Photo;
+import com.example.inmoapp.Model.ResponseContainer;
 import com.example.inmoapp.Services.InmuebleService;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +59,9 @@ public class AddInmuebleActivity extends AppCompatActivity {
     Uri uriSelected;
     Context ctx;
     InmuebleDto newInmueble;
+    private List<Category> categories;
+    private String categoryId;
+    String propertyIdAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +103,8 @@ public class AddInmuebleActivity extends AppCompatActivity {
             }
         });
 
+        /*getCategories();*/
+
 
     }
 
@@ -126,21 +144,34 @@ public class AddInmuebleActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(rbAlquiler.isChecked()){
 
+        if(rbAlquiler.isChecked()){
+            /*for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Alquiler"))
+                    categoryId = c.getId();
+            }*/
+            categoryId = "5c6d9b4381f1df001760c7d7";
         }
 
         if(rbObraNueva.isChecked()){
-
+            /*for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Obra Nueva"))
+                    categoryId = c.getId();
+            }*/
+            categoryId = "5c6d9b5581f1df001760c7d9";
         }
 
         if(rbCompra.isChecked()){
-
+            /*for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Venta"))
+                    categoryId = c.getId();
+            }*/
+            categoryId = "5c6d9b4e81f1df001760c7d8";
         }
 
         newInmueble = new InmuebleDto(etTitle.getText().toString(), etDescription.getText().toString(),
                 Float.parseFloat(etPrice.getText().toString()), Integer.parseInt(etRooms.getText().toString()),
-                Float.parseFloat(etSize.getText().toString()), "5c6d9b4381f1df001760c7d7", etAddress.getText().toString(),
+                Float.parseFloat(etSize.getText().toString()), categoryId, etAddress.getText().toString(),
                 etZipCode.getText().toString(), etCity.getText().toString(), etProvince.getText().toString(), longitud+", "+latitud);
 
         InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
@@ -152,7 +183,7 @@ public class AddInmuebleActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d("Uploaded", "Éxito");
                     Log.d("Uploaded", response.body().toString());
-                    startActivity(new Intent(getApplicationContext(), InmoActivity.class));
+                    propertyIdAdd = response.body().getId();
                 } else {
                     Log.e("Upload error", response.errorBody().toString());
                 }
@@ -164,6 +195,70 @@ public class AddInmuebleActivity extends AppCompatActivity {
             }
         });
 
+        addPhoto();
+
+    }
+
+    public void addPhoto() {
+        if(uriSelected != null){
+            InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
+
+            try {
+                InputStream inputStream = this.getContentResolver().openInputStream(uriSelected);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                int cantBytes;
+                byte[] buffer = new byte[1024*4];
+
+                while ((cantBytes = bufferedInputStream.read(buffer,0,1024*4)) != -1) {
+                    baos.write(buffer,0,cantBytes);
+                }
+
+
+                RequestBody requestFile =
+                        RequestBody.create(
+                                MediaType.parse(this.getContentResolver().getType(uriSelected)), baos.toByteArray());
+
+
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("picture", "picture", requestFile);
+
+
+                RequestBody propertyId = RequestBody.create(MultipartBody.FORM, propertyIdAdd.trim());
+
+                if (validarString(propertyId)) {
+
+                    Call<ResponseContainer<Photo>> callRegister = service.addImgToProperty(body, propertyId);
+
+                    callRegister.enqueue(new Callback<ResponseContainer<Photo>>() {
+                        @Override
+                        public void onResponse(Call<ResponseContainer<Photo>> call, Response<ResponseContainer<Photo>> response) {
+                            if (response.isSuccessful()) {
+                                Log.d("Uploaded", "Éxito");
+                                Log.d("Uploaded", response.body().toString());
+                                startActivity(new Intent(getParent(), InmoActivity.class));
+                            } else {
+                                Log.e("Upload error", response.errorBody().toString());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseContainer<Photo>> call, Throwable t) {
+                            Log.e("Upload error", t.getMessage());
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(ctx, "MAL", Toast.LENGTH_SHORT).show();
+                }
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void performFileSearch() {
@@ -204,7 +299,7 @@ public class AddInmuebleActivity extends AppCompatActivity {
                 Log.i("Filechooser URI", "Uri: " + uri.toString());
                 //showImage(uri);
                 Glide
-                        .with(this)
+                        .with(imgInmueble.getContext())
                         .load(uri)
                         .into(imgInmueble);
                 uriSelected = uri;
@@ -215,5 +310,25 @@ public class AddInmuebleActivity extends AppCompatActivity {
 
     Boolean validarString (RequestBody texto) {
         return texto != null && texto.toString().length() >0;
+    }
+
+    public void getCategories(){
+
+        categories = new ArrayList<>();
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
+        Call<ResponseContainer<Category>> call = service.getListCategories();
+
+        call.enqueue(new Callback<ResponseContainer<Category>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<Category>> call, Response<ResponseContainer<Category>> response) {
+
+                categories = (ArrayList) Arrays.asList(response.body().getRows());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<Category>> call, Throwable t) {
+                Log.e("Categories error", t.getMessage());
+            }
+        });
     }
 }
