@@ -51,4 +51,7 @@ public interface InmuebleService {
     @DELETE("/properties/{id}")
     Call<ResponseContainer<Inmueble>> deleteProperty(@Path("id") String id);
 
+    @GET("properties/{id}")
+    Call<Inmueble> getInmueble(@Path("id") String id);
+
 }

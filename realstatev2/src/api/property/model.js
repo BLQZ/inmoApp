@@ -2,6 +2,8 @@ import mongoose, { Schema } from 'mongoose'
 import Photo from '../photo/model'
 import { finished } from 'stream';
 
+const S = require('string')
+
 const propertySchema = new Schema({
   ownerId: {
     type: Schema.ObjectId,
@@ -47,8 +49,8 @@ const propertySchema = new Schema({
     // type: String,
     type: [Number],
     required: true,
-    get: (v) => v.join(),
-    set: (v) => v.split(',').map(Number),
+    get: (v) => (v && v.length > 0) ? v.join() : null,
+    set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number),
   }
 }, {
   strict: false,
@@ -95,6 +97,8 @@ propertySchema.pre('remove', {query:true}, function(next){
     }
     )
 })
+
+propertySchema.index({loc: '2dsphere'})
 
 const model = mongoose.model('Property', propertySchema)
 

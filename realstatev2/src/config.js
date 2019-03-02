@@ -28,6 +28,7 @@ const config = {
         apiRoot: process.env.API_ROOT || '',
         masterKey: requireProcessEnv('MASTER_KEY'),
         jwtSecret: requireProcessEnv('JWT_SECRET'),
+        initDatabase: true,
         mongo: {
             options: {
                 db: {
@@ -39,7 +40,6 @@ const config = {
     test: {},
     development: {
         mongo: {
-            // uri: 'mongodb://localhost/realstate-dev',
             uri: 'mongodb://admin:admin1@ds062797.mlab.com:62797/inmoapp',
             options: {
                 debug: true

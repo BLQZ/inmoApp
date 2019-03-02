@@ -282,7 +282,7 @@
 
 
 
-	GET /properties/favs
+	GET /properties/fav
 
 
 ### Parameters
@@ -290,6 +290,19 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
+| rooms			| Number			| **optional** <p>Number of rooms. It can be a list of values (optional)</p>							|
+| city			| String			| **optional** <p>Name of the city (optional)</p>							|
+| province			| String			| **optional** <p>Name of the province (optional)</p>							|
+| zipcode			| String			| **optional** <p>Value of the zipcode (optional)</p>							|
+| min_size			| Number			| **optional** <p>Min size of the property (optional)</p>							|
+| max_size			| Number			| **optional** <p>Max size of the property (optional)</p>							|
+| min_price			| Number			| **optional** <p>Min price of the property (optional)</p>							|
+| max_price			| Number			| **optional** <p>Max price of the property (optional)</p>							|
+| category			| String			| **optional** <p>Category Id of the property</p>							|
+| address			| String			| **optional** <p>Regular Expression to match with the address</p>							|
+| near			| String			| **optional** <p>Coordinates to do a search by proximity. The String must be longitude,latitude</p>							|
+| min_distance			| String			| **optional** <p>If the near parameter is used, it expresses the minimum distance to the coordinates provided</p>							|
+| max_distance			| String			| **optional** <p>If the near parameter is used, it expresses the maximum distance to the coordinates provided</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
@@ -308,6 +321,19 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>master access token.</p>							|
+| rooms			| Number			| **optional** <p>Number of rooms. It can be a list of values (optional)</p>							|
+| city			| String			| **optional** <p>Name of the city (optional)</p>							|
+| province			| String			| **optional** <p>Name of the province (optional)</p>							|
+| zipcode			| String			| **optional** <p>Value of the zipcode (optional)</p>							|
+| min_size			| Number			| **optional** <p>Min size of the property (optional)</p>							|
+| max_size			| Number			| **optional** <p>Max size of the property (optional)</p>							|
+| min_price			| Number			| **optional** <p>Min price of the property (optional)</p>							|
+| max_price			| Number			| **optional** <p>Max price of the property (optional)</p>							|
+| category			| String			| **optional** <p>Category Id of the property</p>							|
+| address			| String			| **optional** <p>Regular Expression to match with the address</p>							|
+| near			| String			| **optional** <p>Coordinates to do a search by proximity. The String must be longitude,latitude</p>							|
+| min_distance			| String			| **optional** <p>If the near parameter is used, it expresses the minimum distance to the coordinates provided</p>							|
+| max_distance			| String			| **optional** <p>If the near parameter is used, it expresses the maximum distance to the coordinates provided</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
@@ -326,6 +352,19 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
+| rooms			| Number			| **optional** <p>Number of rooms. It can be a list of values (optional)</p>							|
+| city			| String			| **optional** <p>Name of the city (optional)</p>							|
+| province			| String			| **optional** <p>Name of the province (optional)</p>							|
+| zipcode			| String			| **optional** <p>Value of the zipcode (optional)</p>							|
+| min_size			| Number			| **optional** <p>Min size of the property (optional)</p>							|
+| max_size			| Number			| **optional** <p>Max size of the property (optional)</p>							|
+| min_price			| Number			| **optional** <p>Min price of the property (optional)</p>							|
+| max_price			| Number			| **optional** <p>Max price of the property (optional)</p>							|
+| category			| String			| **optional** <p>Category Id of the property</p>							|
+| address			| String			| **optional** <p>Regular Expression to match with the address</p>							|
+| near			| String			| **optional** <p>Coordinates to do a search by proximity. The String must be longitude,latitude</p>							|
+| min_distance			| String			| **optional** <p>If the near parameter is used, it expresses the minimum distance to the coordinates provided</p>							|
+| max_distance			| String			| **optional** <p>If the near parameter is used, it expresses the maximum distance to the coordinates provided</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
@@ -344,6 +383,19 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
+| rooms			| Number			| **optional** <p>Number of rooms. It can be a list of values (optional)</p>							|
+| city			| String			| **optional** <p>Name of the city (optional)</p>							|
+| province			| String			| **optional** <p>Name of the province (optional)</p>							|
+| zipcode			| String			| **optional** <p>Value of the zipcode (optional)</p>							|
+| min_size			| Number			| **optional** <p>Min size of the property (optional)</p>							|
+| max_size			| Number			| **optional** <p>Max size of the property (optional)</p>							|
+| min_price			| Number			| **optional** <p>Min price of the property (optional)</p>							|
+| max_price			| Number			| **optional** <p>Max price of the property (optional)</p>							|
+| category			| String			| **optional** <p>Category Id of the property</p>							|
+| address			| String			| **optional** <p>Regular Expression to match with the address</p>							|
+| near			| String			| **optional** <p>Coordinates to do a search by proximity. The String must be longitude,latitude</p>							|
+| min_distance			| String			| **optional** <p>If the near parameter is used, it expresses the minimum distance to the coordinates provided</p>							|
+| max_distance			| String			| **optional** <p>If the near parameter is used, it expresses the maximum distance to the coordinates provided</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|

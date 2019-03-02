@@ -100,10 +100,36 @@ public class AddInmuebleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addInmueble();
+                addPhoto(propertyIdAdd);
             }
         });
 
         /*getCategories();*/
+        getCategories(this);
+
+        if(rbAlquiler.isChecked()){
+            for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Alquiler"))
+                    categoryId = c.getId();
+            }
+            /*categoryId = "5c6d9b4381f1df001760c7d7";*/
+        }
+
+        if(rbObraNueva.isChecked()){
+            for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Obra Nueva"))
+                    categoryId = c.getId();
+            }
+            /*categoryId = "5c6d9b5581f1df001760c7d9";*/
+        }
+
+        if(rbCompra.isChecked()){
+            for(Category c : categories) {
+                if(c.getName().equalsIgnoreCase("Venta"))
+                    categoryId = c.getId();
+            }
+            /*categoryId = "5c6d9b4e81f1df001760c7d8";*/
+        }
 
 
     }
@@ -145,29 +171,6 @@ public class AddInmuebleActivity extends AppCompatActivity {
         }
 
 
-        if(rbAlquiler.isChecked()){
-            /*for(Category c : categories) {
-                if(c.getName().equalsIgnoreCase("Alquiler"))
-                    categoryId = c.getId();
-            }*/
-            categoryId = "5c6d9b4381f1df001760c7d7";
-        }
-
-        if(rbObraNueva.isChecked()){
-            /*for(Category c : categories) {
-                if(c.getName().equalsIgnoreCase("Obra Nueva"))
-                    categoryId = c.getId();
-            }*/
-            categoryId = "5c6d9b5581f1df001760c7d9";
-        }
-
-        if(rbCompra.isChecked()){
-            /*for(Category c : categories) {
-                if(c.getName().equalsIgnoreCase("Venta"))
-                    categoryId = c.getId();
-            }*/
-            categoryId = "5c6d9b4e81f1df001760c7d8";
-        }
 
         newInmueble = new InmuebleDto(etTitle.getText().toString(), etDescription.getText().toString(),
                 Float.parseFloat(etPrice.getText().toString()), Integer.parseInt(etRooms.getText().toString()),
@@ -195,11 +198,12 @@ public class AddInmuebleActivity extends AppCompatActivity {
             }
         });
 
-        addPhoto();
+        startActivity(new Intent(this, InmoActivity.class));
+
 
     }
 
-    public void addPhoto() {
+    public void addPhoto(String id) {
         if(uriSelected != null){
             InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
 
@@ -224,7 +228,7 @@ public class AddInmuebleActivity extends AppCompatActivity {
                         MultipartBody.Part.createFormData("picture", "picture", requestFile);
 
 
-                RequestBody propertyId = RequestBody.create(MultipartBody.FORM, propertyIdAdd.trim());
+                RequestBody propertyId = RequestBody.create(MultipartBody.FORM, id.trim());
 
                 if (validarString(propertyId)) {
 
@@ -312,17 +316,17 @@ public class AddInmuebleActivity extends AppCompatActivity {
         return texto != null && texto.toString().length() >0;
     }
 
-    public void getCategories(){
+    public void getCategories(Context ctx){
 
         categories = new ArrayList<>();
-        InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
         Call<ResponseContainer<Category>> call = service.getListCategories();
 
         call.enqueue(new Callback<ResponseContainer<Category>>() {
             @Override
             public void onResponse(Call<ResponseContainer<Category>> call, Response<ResponseContainer<Category>> response) {
 
-                categories = (ArrayList) Arrays.asList(response.body().getRows());
+                categories = response.body().getRows();
             }
 
             @Override

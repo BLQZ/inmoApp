@@ -3,6 +3,7 @@ package com.example.inmoapp.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,6 +51,12 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
         holder.mItem = mValues.get(position);
         holder.nombre.setText(mValues.get(position).getTitle());
         holder.address.setText(mValues.get(position).getAdress());
+        double price = mValues.get(position).getPrice();
+        holder.imgPrice.setText(String.valueOf(price));
+        holder.imgRooms.setText(String.valueOf(mValues.get(position).getRooms()));
+        holder.imgCityProvince.setText(mValues.get(position).getCity() + " (" + mValues.get(position).getProvince() + ")");
+
+
 
         if(holder.mItem.getPhotos() == null){
             holder.imageView.setImageResource(R.drawable.ic_home_black_24dp);
@@ -106,7 +113,7 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView nombre, address;
+        public final TextView nombre, address, imgCityProvince, imgRooms, imgPrice;
         public final ImageView imageView;
         public final ImageView isFav;
         public Inmueble mItem;
@@ -120,6 +127,9 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
             imageView = view.findViewById(R.id.imageViewInmueble);
             cardView_inmueble = view.findViewById(R.id.cardView_inmueble);
             isFav = view.findViewById(R.id.isFav);
+            imgCityProvince = view.findViewById(R.id.textView_cityProvince);
+            imgRooms = view.findViewById(R.id.textView_rooms);
+            imgPrice = view.findViewById(R.id.textView_price);
         }
 
         @Override

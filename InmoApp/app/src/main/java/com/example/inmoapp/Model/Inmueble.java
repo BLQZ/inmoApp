@@ -9,12 +9,12 @@ public class Inmueble {
     private double price;
     private int rooms;
     private Category categoryId;
-    private String adress;
+    private String address;
     private String zipcode;
     private String city;
     private String province;
     private String loc;
-    private String[] photos;
+    private String photos[];
     private boolean isFav;
 
     public Inmueble() {
@@ -29,7 +29,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.adress = adress;
+        this.address = adress;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
@@ -46,7 +46,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.adress = adress;
+        this.address = adress;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
@@ -64,7 +64,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.adress = adress;
+        this.address = adress;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
@@ -130,11 +130,11 @@ public class Inmueble {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public String getZipcode() {
@@ -202,7 +202,7 @@ public class Inmueble {
             return false;
         if (categoryId != null ? !categoryId.equals(inmueble.categoryId) : inmueble.categoryId != null)
             return false;
-        if (adress != null ? !adress.equals(inmueble.adress) : inmueble.adress != null)
+        if (address != null ? !address.equals(inmueble.address) : inmueble.address != null)
             return false;
         if (zipcode != null ? !zipcode.equals(inmueble.zipcode) : inmueble.zipcode != null)
             return false;
@@ -224,7 +224,7 @@ public class Inmueble {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + rooms;
         result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
-        result = 31 * result + (adress != null ? adress.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (zipcode != null ? zipcode.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (province != null ? province.hashCode() : 0);
@@ -242,7 +242,7 @@ public class Inmueble {
                 ", price=" + price +
                 ", rooms=" + rooms +
                 ", categoryId='" + categoryId + '\'' +
-                ", adress='" + adress + '\'' +
+                ", adress='" + address + '\'' +
                 ", zipcode='" + zipcode + '\'' +
                 ", city='" + city + '\'' +
                 ", province='" + province + '\'' +

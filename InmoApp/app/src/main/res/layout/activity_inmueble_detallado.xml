@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InmuebleDetalladoActivity"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#6D000000"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/relative"
+        app:layout_constraintTop_toTopOf="@+id/relative" />
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTwitter">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvTittle"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/relative"
+        app:layout_constraintStart_toStartOf="@+id/relative"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnTwitter"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/relative"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_twitter_brands" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOwner" />
+
+    <TextView
+        android:id="@+id/tvOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative" />
+
+    <ImageView
+        android:id="@+id/imgAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:srcCompat="@drawable/ic_place_green_24dp" />
+
+    <ImageView
+        android:id="@+id/imgCityProvince"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:srcCompat="@drawable/ic_location_city_blue_24dp" />
+
+    <ImageView
+        android:id="@+id/imgPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/imgAddress"
+        app:layout_constraintTop_toBottomOf="@+id/imgAddress"
+        app:srcCompat="@drawable/ic_euro_symbol_blue_24dp" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPrice"
+        app:layout_constraintStart_toEndOf="@+id/imgPrice"
+        app:layout_constraintTop_toTopOf="@+id/imgPrice" />
+
+    <TextView
+        android:id="@+id/tvRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgRooms"
+        app:layout_constraintEnd_toStartOf="@+id/imgRooms"
+        app:layout_constraintTop_toTopOf="@+id/imgRooms" />
+
+    <TextView
+        android:id="@+id/tvCityProvince"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCityProvince"
+        app:layout_constraintEnd_toStartOf="@+id/imgCityProvince"
+        app:layout_constraintTop_toTopOf="@+id/imgCityProvince" />
+
+    <ImageView
+        android:id="@+id/imgRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgCityProvince"
+        app:layout_constraintTop_toBottomOf="@+id/imgCityProvince"
+        app:srcCompat="@drawable/ic_hotel_green_24dp" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/imgPrice"
+        app:layout_constraintStart_toEndOf="@+id/imgAddress"
+        app:layout_constraintTop_toTopOf="@+id/imgAddress" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -6,10 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnDeleteProperty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+        android:layout_marginEnd="-4dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="@+id/cardView_inmueble"
+        app:layout_constraintTop_toTopOf="@+id/cardView_inmueble"
+        app:srcCompat="@drawable/ic_delete_white_24dp" />
+
     <android.support.v7.widget.CardView
         android:id="@+id/cardView_inmueble"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="274dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -17,8 +29,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
 
         <android.support.constraint.ConstraintLayout
@@ -41,12 +55,14 @@
 
             <TextView
                 android:id="@+id/textView_nombre"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="TextView"
-                app:layout_constraintEnd_toStartOf="@+id/textView_address"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/isFav"
                 app:layout_constraintStart_toStartOf="@+id/imageViewInmueble"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewInmueble" />
 
@@ -54,23 +70,86 @@
                 android:id="@+id/textView_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_nombre"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewInmueble" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
             <ImageView
                 android:id="@+id/isFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewInmueble"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewInmueble"
                 app:srcCompat="@drawable/ic_favorite_border_red_24dp" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/textView_nombre"
+                app:layout_constraintTop_toBottomOf="@+id/textView_nombre"
+                app:srcCompat="@drawable/ic_place_green_24dp" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:srcCompat="@drawable/ic_euro_symbol_blue_24dp" />
+
+            <TextView
+                android:id="@+id/textView_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/isFav"
+                app:layout_constraintTop_toBottomOf="@+id/isFav"
+                app:srcCompat="@drawable/ic_hotel_green_24dp" />
+
+            <TextView
+                android:id="@+id/textView_rooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                app:srcCompat="@drawable/ic_location_city_blue_24dp" />
+
+            <TextView
+                android:id="@+id/textView_cityProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
         </android.support.constraint.ConstraintLayout>
 

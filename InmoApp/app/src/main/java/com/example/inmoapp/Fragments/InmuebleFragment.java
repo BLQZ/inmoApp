@@ -1,8 +1,12 @@
 package com.example.inmoapp.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +25,9 @@ import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.ResponseContainer;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.InmuebleService;
+import com.example.inmoapp.ViewModel.InmuebleViewModel;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +51,7 @@ public class InmuebleFragment extends Fragment {
     private List<Inmueble> inmuebleList;
     private MyInmuebleRecyclerViewAdapter adapter;
     private Context ctx;
+    private InmuebleViewModel mViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -86,6 +93,7 @@ public class InmuebleFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(ctx, mColumnCount));
             }
+            mViewModel = ViewModelProviders.of((FragmentActivity) ctx).get(InmuebleViewModel.class);
             inmuebleList = new ArrayList<>();
 
             /**
@@ -118,8 +126,8 @@ public class InmuebleFragment extends Fragment {
                     Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
 
-
             });
+            lanzarViewModel(ctx);
         }
         return view;
     }
@@ -155,5 +163,16 @@ public class InmuebleFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         /*void onListFragmentInteraction(DummyItem item);*/
+    }
+
+    private void lanzarViewModel(Context ctx) {
+        InmuebleViewModel inmuebleViewModel = ViewModelProviders.of((FragmentActivity) ctx)
+                .get(InmuebleViewModel.class);
+        inmuebleViewModel.getAll().observe(getActivity(), new Observer<List<Inmueble>>() {
+            @Override
+            public void onChanged(@Nullable List<Inmueble> inmuebles) {
+                adapter.setNuevosInmubles(inmuebles);
+            }
+        });
     }
 }
