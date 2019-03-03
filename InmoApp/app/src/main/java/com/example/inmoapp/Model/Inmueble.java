@@ -1,27 +1,60 @@
 package com.example.inmoapp.Model;
 
-public class Inmueble {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class Inmueble implements Serializable {
+
+    @SerializedName("id")
+    @Expose
     private String id;
+    @SerializedName("ownerId")
+    @Expose
     private User ownerId;
+    @SerializedName("title")
+    @Expose
     private String title;
+    @SerializedName("description")
+    @Expose
     private String description;
+    @SerializedName("price")
+    @Expose
     private double price;
+    @SerializedName("rooms")
+    @Expose
     private int rooms;
+    @SerializedName("categoryId")
+    @Expose
     private Category categoryId;
+    @SerializedName("address")
+    @Expose
     private String address;
+    @SerializedName("zipcode")
+    @Expose
     private String zipcode;
+    @SerializedName("city")
+    @Expose
     private String city;
+    @SerializedName("province")
+    @Expose
     private String province;
+    @SerializedName("loc")
+    @Expose
     private String loc;
+    @SerializedName("photos")
+    @Expose
     private String photos[];
+    @SerializedName("isFav")
+    @Expose
     private boolean isFav;
 
     public Inmueble() {
     }
 
     public Inmueble(String id, User ownerId, String title, String description, double price, int rooms,
-                    Category categoryId, String adress, String zipcode, String city, String province, String loc) {
+                    Category categoryId, String address, String zipcode, String city, String province, String loc) {
         this.id = id;
         this.ownerId = ownerId;
         this.title = title;
@@ -29,7 +62,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.address = adress;
+        this.address = address;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
@@ -37,7 +70,7 @@ public class Inmueble {
     }
 
     public Inmueble(String id, User ownerId, String title, String description, double price, int rooms,
-                    Category categoryId, String adress, String zipcode, String city, String province,
+                    Category categoryId, String address, String zipcode, String city, String province,
                     String loc, String[] photos) {
         this.id = id;
         this.ownerId = ownerId;
@@ -46,7 +79,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.address = adress;
+        this.address = address;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
@@ -55,7 +88,7 @@ public class Inmueble {
     }
 
     public Inmueble(String id, User ownerId, String title, String description, double price, int rooms,
-                    Category categoryId, String adress, String zipcode, String city, String province,
+                    Category categoryId, String address, String zipcode, String city, String province,
                     String loc, String[] photos, boolean isFav) {
         this.id = id;
         this.ownerId = ownerId;
@@ -64,7 +97,7 @@ public class Inmueble {
         this.price = price;
         this.rooms = rooms;
         this.categoryId = categoryId;
-        this.address = adress;
+        this.address = address;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;

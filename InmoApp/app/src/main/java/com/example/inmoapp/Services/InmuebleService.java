@@ -4,6 +4,7 @@ import com.example.inmoapp.Model.Category;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.InmuebleDto;
 import com.example.inmoapp.Model.Photo;
+import com.example.inmoapp.Model.PropertyResponseOne;
 import com.example.inmoapp.Model.ResponseContainer;
 
 import okhttp3.MultipartBody;
@@ -52,6 +53,6 @@ public interface InmuebleService {
     Call<ResponseContainer<Inmueble>> deleteProperty(@Path("id") String id);
 
     @GET("properties/{id}")
-    Call<Inmueble> getInmueble(@Path("id") String id);
+    Call<PropertyResponseOne> getInmueble(@Path("id") String id);
 
 }

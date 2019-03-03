@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.inmoapp.Fragments.InmuebleNoAuthFragment.OnListFragmentInteractionListener;
+import com.example.inmoapp.InmuebleDetalladoActivity;
 import com.example.inmoapp.Listener.InmuebleListener;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.R;
@@ -47,7 +48,7 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.nombre.setText(mValues.get(position).getTitle());
         holder.address.setText(mValues.get(position).getAdress());
@@ -89,7 +90,11 @@ public class MyinmuebleNoAuthRecyclerViewAdapter extends RecyclerView.Adapter<My
                 /*Intent session = new Intent(contexto.getApplicationContext(), SessionActivity.class);
                 contexto.startActivity(session);*/
 
-                v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), SessionActivity.class));
+                Intent i = new Intent(contexto, InmuebleDetalladoActivity.class);
+                i.putExtra("id", mValues.get(position).getId());
+                contexto.startActivity(i);
+
+                /*v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), SessionActivity.class));*/
 
             }
         });

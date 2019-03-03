@@ -40,12 +40,14 @@
 
     <TextView
         android:id="@+id/tvTittle"
-        android:layout_width="149dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/relative"
+        app:layout_constraintEnd_toStartOf="@+id/btnTwitter"
         app:layout_constraintStart_toStartOf="@+id/relative"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,13 +61,15 @@
         app:layout_constraintBottom_toTopOf="@+id/relative"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_twitter_brands" />
+        app:srcCompat="@drawable/ic_whatsapp_logo" />
 
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,11 +78,14 @@
 
     <TextView
         android:id="@+id/tvOwner"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relative" />
 
@@ -86,7 +93,6 @@
         android:id="@+id/imgAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/tvDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription"
@@ -97,7 +103,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="@+id/tvDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription"
         app:srcCompat="@drawable/ic_location_city_blue_24dp" />

@@ -126,36 +126,38 @@ public class MyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueb
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(contexto, InmuebleDetalladoActivity.class);
-                i.putExtra("id", mValues.get(position).getId() );
+                i.putExtra("id", mValues.get(position).getId());
                 contexto.startActivity(i);
 
+
                 /*InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
-                Call<ResponseContainer<Inmueble>> call = service.getInmueble(mValues.get(position).getId());
+                Call<Inmueble> call = service.getInmueble(mValues.get(position).getId());
 
 
-                call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
+                call.enqueue(new Callback<Inmueble>() {
 
                     @Override
-                    public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
+                    public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                         if (response.code() != 200) {
                             Toast.makeText(contexto, "Error", Toast.LENGTH_SHORT).show();
                         } else {
-                            inmueble = (Inmueble) response.body().getRows();
+                            inmueble = response.body();
+                            Intent i = new Intent(contexto , InmuebleDetalladoActivity.class);
+                            i.putExtra("inmueble", inmueble);
+                            contexto.startActivity(i);
 
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
+                    public void onFailure(Call<Inmueble> call, Throwable t) {
                         Log.e("NetworkFailure", t.getMessage());
                         Toast.makeText(contexto, "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
 
 
-                });
-                Intent i = new Intent(contexto , InmuebleDetalladoActivity.class);
-                i.putExtra("inmueble", inmueble);
-                holder.mView.getContext().startActivity(i);*/
+                });*/
+
             }
         });
 
