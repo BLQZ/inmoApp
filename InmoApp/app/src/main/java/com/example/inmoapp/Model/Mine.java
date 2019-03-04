@@ -1,36 +1,78 @@
 package com.example.inmoapp.Model;
 
-public class InmuebleDto {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class Mine implements Serializable {
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("ownerId")
+    @Expose
+    private String ownerId;
+    @SerializedName("title")
+    @Expose
     private String title;
+    @SerializedName("description")
+    @Expose
     private String description;
+    @SerializedName("price")
+    @Expose
     private double price;
+    @SerializedName("rooms")
+    @Expose
     private int rooms;
-    private double size;
-    private String categoryId;
+    @SerializedName("address")
+    @Expose
     private String address;
+    @SerializedName("zipcode")
+    @Expose
     private String zipcode;
+    @SerializedName("city")
+    @Expose
     private String city;
+    @SerializedName("province")
+    @Expose
     private String province;
+    @SerializedName("loc")
+    @Expose
     private String loc;
 
-    public InmuebleDto() {
-    }
 
-    public InmuebleDto(String title, String description, double price, int rooms,
-                       double size, String categoryId, String address, String zipcode,
-                       String city, String province, String loc) {
+    public Mine(String id, String ownerId, String title, String description, double price, int rooms, String address, String zipcode, String city, String province, String loc) {
+        this.id = id;
+        this.ownerId = ownerId;
         this.title = title;
         this.description = description;
         this.price = price;
         this.rooms = rooms;
-        this.size = size;
-        this.categoryId = categoryId;
         this.address = address;
         this.zipcode = zipcode;
         this.city = city;
         this.province = province;
         this.loc = loc;
+    }
+
+    public Mine() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
@@ -63,22 +105,6 @@ public class InmuebleDto {
 
     public void setRooms(int rooms) {
         this.rooms = rooms;
-    }
-
-    public double getSize() {
-        return size;
-    }
-
-    public void setSize(double size) {
-        this.size = size;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getAddress() {
@@ -126,36 +152,34 @@ public class InmuebleDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InmuebleDto that = (InmuebleDto) o;
+        Mine mine = (Mine) o;
 
-        if (Double.compare(that.price, price) != 0) return false;
-        if (rooms != that.rooms) return false;
-        if (Double.compare(that.size, size) != 0) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null)
+        if (Double.compare(mine.price, price) != 0) return false;
+        if (rooms != mine.rooms) return false;
+        if (id != null ? !id.equals(mine.id) : mine.id != null) return false;
+        if (ownerId != null ? !ownerId.equals(mine.ownerId) : mine.ownerId != null) return false;
+        if (title != null ? !title.equals(mine.title) : mine.title != null) return false;
+        if (description != null ? !description.equals(mine.description) : mine.description != null)
             return false;
-        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null)
+        if (address != null ? !address.equals(mine.address) : mine.address != null) return false;
+        if (zipcode != null ? !zipcode.equals(mine.zipcode) : mine.zipcode != null) return false;
+        if (city != null ? !city.equals(mine.city) : mine.city != null) return false;
+        if (province != null ? !province.equals(mine.province) : mine.province != null)
             return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (zipcode != null ? !zipcode.equals(that.zipcode) : that.zipcode != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (province != null ? !province.equals(that.province) : that.province != null)
-            return false;
-        return loc != null ? loc.equals(that.loc) : that.loc == null;
+        return loc != null ? loc.equals(mine.loc) : mine.loc == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = title != null ? title.hashCode() : 0;
+        result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (ownerId != null ? ownerId.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + rooms;
-        temp = Double.doubleToLongBits(size);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (zipcode != null ? zipcode.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
@@ -166,13 +190,13 @@ public class InmuebleDto {
 
     @Override
     public String toString() {
-        return "InmuebleDto{" +
-                "title='" + title + '\'' +
+        return "Mine{" +
+                "id='" + id + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", rooms=" + rooms +
-                ", size=" + size +
-                ", categoryId='" + categoryId + '\'' +
                 ", address='" + address + '\'' +
                 ", zipcode='" + zipcode + '\'' +
                 ", city='" + city + '\'' +

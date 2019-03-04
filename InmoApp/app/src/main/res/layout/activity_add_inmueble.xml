@@ -33,31 +33,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonSubirImagen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/SubirImagenInmueble"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewPreImg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPreImg"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPreImg" />
-
-    <ImageView
-        android:id="@+id/imageViewPreImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="120dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSubirImagen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars[2]" />
-
     <EditText
         android:id="@+id/editTextTitle"
         android:layout_width="0dp"
@@ -68,9 +43,9 @@
         android:ems="10"
         android:hint="Title"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSubirImagen"
-        app:layout_constraintStart_toStartOf="@+id/imageViewPreImg"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPreImg" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextDescription"
@@ -191,5 +166,19 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/editTextAddress"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
+
+    <Button
+        android:id="@+id/btnEditar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/design_default_color_primary"
+        android:text="EDITAR INMUEBLE"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

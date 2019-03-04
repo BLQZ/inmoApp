@@ -17,8 +17,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="dialog_message">¿Estás seguro?</string>
+    <string name="dialog_title">¿Quieres cerrar sesión?</string>
+    <string name="ok">Salir</string>
+    <string name="cancel">Cancelar</string>
     <string name="listado">Viviendas</string>
     <string name="favoritas">Favoritas</string>
     <string name="opciones">Opciones</string>
     <string name="SubirImagenInmueble">Seleccionar Imagen</string>
+    <string name="title_activity_photo">PhotoActivity</string>
 </resources>

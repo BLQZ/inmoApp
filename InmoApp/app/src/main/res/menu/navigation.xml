@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="@string/opciones" />
 
+    <item
+        android:id="@+id/navigation_mineProperties"
+        android:icon="@drawable/ic_my_house"
+        android:title="Mis inmuebles" />
+
 </menu>

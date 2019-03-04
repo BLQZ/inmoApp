@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.inmoapp.Adapter.ViewPagerAdapter;
 import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.TipoAutenticacion;
 import com.example.inmoapp.Generator.UtilToken;
@@ -27,7 +29,9 @@ import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.InmuebleDto;
 import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.Model.Photo;
+import com.example.inmoapp.Model.PropertyResponseOne;
 import com.example.inmoapp.Model.ResponseContainer;
+import com.example.inmoapp.Model.Rows;
 import com.example.inmoapp.Services.InmuebleService;
 
 import java.io.BufferedInputStream;
@@ -50,23 +54,31 @@ public class AddInmuebleActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
     private EditText etTitle, etDescription, etAddress, etRooms, etPrice, etSize, etCity, etProvince, etZipCode;
+    private String title, description, address, rooms, price, size, city, province, zipCode;
     private RadioGroup radioGroup;
     private RadioButton rbAlquiler, rbCompra, rbObraNueva;
-    private Button btnAddInmueble, subirImagen;
+    private Button btnAddInmueble, subirImagen, btnEditInmueble;
     private ImageView imgInmueble;
     private String loc;
     private double latitud, longitud;
     Uri uriSelected;
     Context ctx;
-    InmuebleDto newInmueble;
+    InmuebleDto newInmueble, editInmueble;
+    /*Inmueble editInmueble;*/
     private List<Category> categories;
     private String categoryId;
-    String propertyIdAdd;
+    String propertyIdAdd, idInmueble;
+    Rows inmueble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_inmueble);
+
+
+
+
+
 
         etTitle = findViewById(R.id.editTextTitle);
         etDescription = findViewById(R.id.editTextDescription);
@@ -86,23 +98,44 @@ public class AddInmuebleActivity extends AppCompatActivity {
         imgInmueble = findViewById(R.id.imageViewPreImg);
 
         btnAddInmueble = findViewById(R.id.btnAddInmueble);
+        btnEditInmueble = findViewById(R.id.btnEditar);
+        btnEditInmueble.setVisibility(View.INVISIBLE);
 
-        subirImagen = findViewById(R.id.buttonSubirImagen);
+        /*subirImagen = findViewById(R.id.buttonSubirImagen);
 
         subirImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performFileSearch();
             }
-        });
+        });*/
+
+        Bundle b = new Bundle();
+        b = getIntent().getExtras();
+        if(b != null){
+            Bundle extras = getIntent().getExtras();
+            idInmueble = extras.getString("id");
+            dataPropertyEdit(idInmueble);
+            btnAddInmueble.setVisibility(View.INVISIBLE);
+            btnEditInmueble.setVisibility(View.VISIBLE);
+        }
 
         btnAddInmueble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addInmueble();
-                addPhoto(propertyIdAdd);
+                /*addPhoto(propertyIdAdd);*/
             }
         });
+
+        btnEditInmueble.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editInmueble(idInmueble);
+            }
+        });
+
+
 
         /*getCategories();*/
         getCategories(this);
@@ -130,6 +163,8 @@ public class AddInmuebleActivity extends AppCompatActivity {
             }
             /*categoryId = "5c6d9b4e81f1df001760c7d8";*/
         }
+
+
 
 
     }
@@ -179,6 +214,59 @@ public class AddInmuebleActivity extends AppCompatActivity {
 
         InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
         Call<Inmueble> call = service.addInmueble(newInmueble);
+
+        call.enqueue(new Callback<Inmueble>() {
+            @Override
+            public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Uploaded", "Éxito");
+                    Log.d("Uploaded", response.body().toString());
+                    propertyIdAdd = response.body().getId();
+                } else {
+                    Log.e("Upload error", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Inmueble> call, Throwable t) {
+                Log.e("Upload error", t.getMessage());
+            }
+        });
+
+        startActivity(new Intent(this, InmoActivity.class));
+
+
+    }
+
+    public void editInmueble(String id){
+
+        // TODO: AÑADIR CHECK A LOS RADIOBUTTON, Y AÑADIR FOTO DESPUÉS DE LLAMAR A LA PETICION DE AÑADIR INMUEBLE
+
+        // Obtener Latitud y longitud a partir de ADDRESS
+        Geocoder coder = new Geocoder(this);
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(etAddress.getText().toString(), 1);
+            for(Address add : adresses){
+                latitud = add.getLongitude();
+                longitud = add.getLatitude();
+                /*if (statement) {//Controls to ensure it is right address such as country etc.
+                    latitud = add.getLongitude();
+                    longitud = add.getLatitude();
+                }*/
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        editInmueble = new InmuebleDto(etTitle.getText().toString(), etDescription.getText().toString(),
+                Float.parseFloat(etPrice.getText().toString()), Integer.parseInt(etRooms.getText().toString()),
+                Float.parseFloat(etSize.getText().toString()), categoryId, etAddress.getText().toString(),
+                etZipCode.getText().toString(), etCity.getText().toString(), etProvince.getText().toString(), longitud+", "+latitud);
+
+
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
+        Call<Inmueble> call = service.editInmueble(id, editInmueble);
 
         call.enqueue(new Callback<Inmueble>() {
             @Override
@@ -335,4 +423,57 @@ public class AddInmuebleActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void dataPropertyEdit(String id){
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
+        Call<PropertyResponseOne> call = service.getInmueble(id);
+
+
+        call.enqueue(new Callback<PropertyResponseOne>() {
+
+            /*private Inmueble inmueble;*/
+
+            @Override
+            public void onResponse(Call<PropertyResponseOne> call, Response<PropertyResponseOne> response) {
+                if (response.code() != 200) {
+                    Toast.makeText(AddInmuebleActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Rows inmueble = response.body().getRows();
+                    Log.d("el response", response.toString());
+                    etAddress.setText(inmueble.getAddress());
+                    etTitle.setText(inmueble.getTitle());
+                    etCity.setText(inmueble.getCity());
+                    etProvince.setText(inmueble.getProvince());
+                    etDescription.setText(inmueble.getDescription());
+                    etPrice.setText(String.valueOf(inmueble.getPrice()));
+                    etRooms.setText(String.valueOf(inmueble.getRooms()));
+                    etZipCode.setText(String.valueOf(inmueble.getZipcode()));
+                    etSize.setText(String.valueOf(inmueble.getSize()));
+
+                    /*if(inmueble.getPhotos().length==0){
+                        imagenes.add("https://i.imgur.com/0UbI7MB.png");
+                    } else {
+                        imagenes = Arrays.asList(inmueble.getPhotos());
+                    }
+                    imagenes = Arrays.asList(inmueble.getPhotos());
+                    imagenes.add("https://i.imgur.com/0UbI7MB.png");
+                    imagenes.add("https://imgs.nestimg.com/casa_venta_granada_capital_san_francisco_javier_110864311921321328.jpg");
+                    ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(InmuebleDetalladoActivity.this, imagenes, position);
+                    viewPager.setAdapter(viewPagerAdapter);
+                    tweetDefault = "Disfrutando de la ExpoFP 2019 con " + proyec.getNombre();*/
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PropertyResponseOne> call, Throwable t) {
+                Log.e("NetworkFailure", t.getMessage());
+                Toast.makeText(AddInmuebleActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+    }
+
+
 }

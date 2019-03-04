@@ -1,8 +1,10 @@
 package com.example.inmoapp.Services;
 
+import com.example.inmoapp.InmuebleDetalladoActivity;
 import com.example.inmoapp.Model.Category;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.InmuebleDto;
+import com.example.inmoapp.Model.Mine;
 import com.example.inmoapp.Model.Photo;
 import com.example.inmoapp.Model.PropertyResponseOne;
 import com.example.inmoapp.Model.ResponseContainer;
@@ -17,6 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -54,5 +57,11 @@ public interface InmuebleService {
 
     @GET("properties/{id}")
     Call<PropertyResponseOne> getInmueble(@Path("id") String id);
+
+    @PUT("properties/{id}")
+    Call<Inmueble> editInmueble(@Path("id") String id, @Body InmuebleDto inmueble);
+
+    @GET("properties/mine")
+    Call<ResponseContainer<Mine>> getMineInmuebles();
 
 }

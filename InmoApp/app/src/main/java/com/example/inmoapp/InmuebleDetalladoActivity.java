@@ -3,6 +3,7 @@ package com.example.inmoapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.RequestBuilder;
 import com.example.inmoapp.Adapter.ViewPagerAdapter;
+import com.example.inmoapp.Fragments.PhotoFragment;
 import com.example.inmoapp.Generator.ServiceGenerator;
+import com.example.inmoapp.Generator.UtilToken;
+import com.example.inmoapp.Generator.UtilUser;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.PropertyResponseOne;
 import com.example.inmoapp.Model.ResponseContainer;
@@ -39,6 +43,7 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
     String tweetDefault, idProyec;
     ImageView btnTwitter;
     Rows inmueble;
+    FloatingActionButton btnEditar, btnPhotos;
 
 
     @Override
@@ -56,8 +61,46 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
         position = findViewById(R.id.position);
         tvOwner = findViewById(R.id.tvOwner);
 
+        btnEditar = findViewById(R.id.btnEditProperty);
+        btnPhotos = findViewById(R.id.btnPhotos);
+        /*btnPhotos.hide();*/
+
+        /*if(UtilUser.getId(InmuebleDetalladoActivity.this).equals(idProyec)){
+            btnPhotos.show();
+        }*/
+
+
+
         Bundle extras = getIntent().getExtras();
         idProyec = extras.getString("id");
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(InmuebleDetalladoActivity.this, AddInmuebleActivity.class);
+                i.putExtra("id", idProyec);
+                startActivity(i);
+            }
+        });
+
+
+
+        btnPhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                Intent i = new Intent(InmuebleDetalladoActivity.this, PhotoActivity.class);
+                b.putString("id", idProyec);
+                /*PhotoFragment p = new PhotoFragment();*/
+                /*p.setArguments(b);*/
+
+                /*Intent i = new Intent(InmuebleDetalladoActivity.this, PhotoActivity.class);*/
+                i.putExtras(b);
+                startActivity(i);
+
+
+            }
+        });
 
         /*Intent i = getIntent();
         inmueble = (Inmueble) i.getSerializableExtra("inmueble");*/
@@ -79,31 +122,6 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        /*viewPager = findViewById(R.id.viewPager);
-        tvTittle = (TextView) findViewById(R.id.tvTittle);
-        tvDescription = findViewById(R.id.tvDescription);
-        tvAddress = (TextView) findViewById(R.id.tvAddress);
-        tvRooms = findViewById(R.id.tvRooms);
-        tvPrice = findViewById(R.id.tvPrice);
-        tvCityProvince = findViewById(R.id.tvCityProvince);
-        position = findViewById(R.id.position);
-        tvOwner = findViewById(R.id.tvOwner);*/
-
-        /*Log.d("s", inmueble.toString());
-        tvAddress.setText(inmueble.getAdress());
-        tvTittle.setText(inmueble.getTitle());
-        tvCityProvince.setText(inmueble.getCity()+"("+inmueble.getProvince()+")");
-        tvDescription.setText(inmueble.getDescription());
-        tvPrice.setText(String.valueOf(inmueble.getPrice()));
-        tvRooms.setText(String.valueOf(inmueble.getRooms()));
-        tvOwner.setText(inmueble.getOwnerId().getName());
-        imagenes = Arrays.asList(inmueble.getPhotos());
-        imagenes.add("https://i.imgur.com/0UbI7MB.png");
-        imagenes.add("https://imgs.nestimg.com/casa_venta_granada_capital_san_francisco_javier_110864311921321328.jpg");
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(InmuebleDetalladoActivity.this, imagenes, position);
-        viewPager.setAdapter(viewPagerAdapter);*/
-
 
         InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
         Call<PropertyResponseOne> call = service.getInmueble(idProyec);
