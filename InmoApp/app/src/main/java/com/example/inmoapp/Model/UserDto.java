@@ -80,6 +80,12 @@ public class UserDto {
         this.role = role;
     }
 
+    public UserDto(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +

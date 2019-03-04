@@ -1,5 +1,6 @@
 package com.example.inmoapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -65,9 +66,7 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
         btnPhotos = findViewById(R.id.btnPhotos);
         /*btnPhotos.hide();*/
 
-        /*if(UtilUser.getId(InmuebleDetalladoActivity.this).equals(idProyec)){
-            btnPhotos.show();
-        }*/
+
 
 
 
@@ -110,7 +109,7 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, tvTittle.getText().toString() + "\n" + tvDescription.getText().toString());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, tvTittle.getText().toString() + "\n-" + tvDescription.getText().toString() + "\n\tCompartido con InmoApp.");
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }
@@ -131,6 +130,7 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
 
             /*private Inmueble inmueble;*/
 
+            @SuppressLint("RestrictedApi")
             @Override
             public void onResponse(Call<PropertyResponseOne> call, Response<PropertyResponseOne> response) {
                 if (response.code() != 200) {
@@ -157,6 +157,13 @@ public class InmuebleDetalladoActivity extends AppCompatActivity {
                     ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(InmuebleDetalladoActivity.this, imagenes, position);
                     viewPager.setAdapter(viewPagerAdapter);
                     /*tweetDefault = "Disfrutando de la ExpoFP 2019 con " + proyec.getNombre();*/
+
+                    /*if(!UtilUser.getId(InmuebleDetalladoActivity.this).equals(inmueble.getOwnerId().getId())){
+                        btnPhotos.setVisibility(View.INVISIBLE);
+                        *//*btnPhotos.setVisibility(View.INVISIBLE);*//*
+                    } else {
+                        btnPhotos.setVisibility(View.VISIBLE);
+                    }*/
 
                 }
             }

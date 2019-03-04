@@ -47,7 +47,7 @@ public class MyMyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyMyIn
     private List<Mine> mValues;
     private final InmuebleListener mListener;
     private Context contexto;
-    private MyInmuebleViewModel mViewModel;
+    private InmuebleViewModel mViewModel;
     private Inmueble inmueble;
 
     public MyMyInmuebleRecyclerViewAdapter(Context ctx, List<Mine> items, InmuebleListener listener) {
@@ -125,7 +125,7 @@ public class MyMyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyMyIn
         holder.btnDeleteProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewModel = ViewModelProviders.of((FragmentActivity) contexto).get(MyInmuebleViewModel.class);
+                mViewModel = ViewModelProviders.of((FragmentActivity) contexto).get(InmuebleViewModel.class);
                 mViewModel.selectIdInmueble(holder.mItem.getId());
                 EliminarInmuebleDialogFragment dialogoEliminar = EliminarInmuebleDialogFragment.newInstance();
                 dialogoEliminar.show(((FragmentActivity) contexto).getSupportFragmentManager(), "dialog");

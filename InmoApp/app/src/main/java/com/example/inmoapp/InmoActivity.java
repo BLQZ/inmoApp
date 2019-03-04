@@ -50,15 +50,20 @@ public class InmoActivity extends AppCompatActivity implements InmuebleListener 
                     btnToAddInmueble.hide();
                     return true;
                 case R.id.navigation_notifications:
-                    /*mTextMessage.setText(R.string.title_notifications);*/
-                    return true;
-                case R.id.navigation_mineProperties:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contenedor, new AjustesFragment())
                             .commit();
 
                     btnToAddInmueble.hide();
+                    return true;
+                case R.id.navigation_mineProperties:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.contenedor, new MyInmuebleFragment())
+                            .commit();
+
+                    btnToAddInmueble.show();
                     return true;
             }
             return false;
@@ -78,6 +83,7 @@ public class InmoActivity extends AppCompatActivity implements InmuebleListener 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         btnToAddInmueble = findViewById(R.id.btnToAddInmueble);
+        btnToAddInmueble.hide();
 
         btnToAddInmueble.setOnClickListener(new View.OnClickListener() {
             @Override

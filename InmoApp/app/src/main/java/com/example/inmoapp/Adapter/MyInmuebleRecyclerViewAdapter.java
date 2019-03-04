@@ -227,7 +227,7 @@ public class MyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueb
         /*if(!(holder.mItem.getOwnerId().getId().equals(UtilUser.getId(holder.mView.getContext()))))
             holder.btnDeleteProperty.hide();*/
 
-        holder.btnDeleteProperty.setOnClickListener(new View.OnClickListener() {
+        /*holder.btnDeleteProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewModel = ViewModelProviders.of((FragmentActivity) contexto).get(InmuebleViewModel.class);
@@ -235,7 +235,7 @@ public class MyInmuebleRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueb
                 EliminarInmuebleDialogFragment dialogoEliminar = EliminarInmuebleDialogFragment.newInstance();
                 dialogoEliminar.show(((FragmentActivity) contexto).getSupportFragmentManager(), "dialog");
             }
-        });
+        });*/
 
 
     }

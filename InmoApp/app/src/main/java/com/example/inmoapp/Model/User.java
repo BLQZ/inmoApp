@@ -1,7 +1,12 @@
 package com.example.inmoapp.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
+    /*@SerializedName("_id")
+    @Expose*/
     private String id;
     private String name;
     private String picture;

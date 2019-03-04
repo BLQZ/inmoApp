@@ -49,7 +49,7 @@ public interface InmuebleService {
 
     @Multipart
     @POST("/photos")
-    Call<ResponseContainer<Photo>> addImgToProperty(@Part MultipartBody.Part picture,
+    Call<ResponseContainer<Photo>> addImgToProperty(@Part MultipartBody.Part photo,
                                                     @Part RequestBody propertyId);
 
     @DELETE("/properties/{id}")

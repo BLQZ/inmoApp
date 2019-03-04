@@ -81,7 +81,8 @@ public class PhotoActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPhoto(id);
+                performFileSearch();
+
             }
         });
 
@@ -101,7 +102,7 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     public void addPhoto(String id) {
-        performFileSearch();
+
         if(uriSelected != null){
             InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(PhotoActivity.this), TipoAutenticacion.JWT);
 
@@ -119,7 +120,7 @@ public class PhotoActivity extends AppCompatActivity {
 
                 RequestBody requestFile =
                         RequestBody.create(
-                                MediaType.parse(this.getContentResolver().getType(uriSelected)), baos.toByteArray());
+                                MediaType.parse(PhotoActivity.this.getContentResolver().getType(uriSelected)), baos.toByteArray());
 
 
                 MultipartBody.Part body =
@@ -138,7 +139,6 @@ public class PhotoActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 Log.d("Uploaded", "Éxito");
                                 Log.d("Uploaded", response.body().toString());
-                                startActivity(new Intent(getParent(), InmoActivity.class));
                             } else {
                                 Log.e("Upload error", response.errorBody().toString());
                             }
@@ -160,6 +160,9 @@ public class PhotoActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+            startActivity(new Intent(PhotoActivity.this, InmoActivity.class));
         }
     }
 
@@ -206,6 +209,8 @@ public class PhotoActivity extends AppCompatActivity {
                         .into(imgInmueble);
                 uriSelected = uri;
                 btnAddInmueble.setEnabled(true);*/
+                uriSelected = uri;
+                addPhoto(id);
             }
         }
     }

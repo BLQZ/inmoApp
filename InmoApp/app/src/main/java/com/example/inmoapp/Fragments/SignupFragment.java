@@ -20,6 +20,7 @@ import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.UtilUser;
 import com.example.inmoapp.InmoActivity;
 import com.example.inmoapp.Model.LoginResponse;
+import com.example.inmoapp.Model.UserDto;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.AuthService;
 
@@ -113,7 +114,7 @@ public class SignupFragment extends Fragment {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doRegister();
+                register();
             }
         });
 
@@ -156,6 +157,33 @@ public class SignupFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void navegarLogin();
+    }
+
+    public void register(){
+        UserDto newUser = new UserDto(etEmail.getText().toString(), etPassword.getText().toString(), etPassword.getText().toString());
+
+        AuthService service = ServiceGenerator.createService(AuthService.class);
+        ctx=getView().getContext();
+
+        Call<LoginResponse> call = service.register(newUser);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Signup", "Éxito");
+                    Log.d("Signup", response.body().toString());
+                    UtilUser.setUserInfo(getActivity(), response.body().getUser());
+                    startActivity(new Intent(getActivity(), InmoActivity.class));
+                } else {
+                    Log.e("Signup error", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("Upload error", t.getMessage());
+            }
+        });
     }
 
     public void doRegister(){

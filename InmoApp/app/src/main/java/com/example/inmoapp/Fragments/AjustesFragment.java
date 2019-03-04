@@ -19,11 +19,13 @@ import com.example.inmoapp.Generator.ServiceGenerator;
 import com.example.inmoapp.Generator.TipoAutenticacion;
 import com.example.inmoapp.Generator.UtilToken;
 import com.example.inmoapp.Generator.UtilUser;
+import com.example.inmoapp.Model.PassDto;
 import com.example.inmoapp.Model.User;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.InmuebleService;
 import com.example.inmoapp.Services.UserService;
 
+import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,8 +45,9 @@ public class AjustesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private TextView tvName, tvEmail;
     private Button btnNamePicture, btnCambiarPassword;
-    private EditText etName, etPassword, etRepeatPassword;
+    private EditText etName, etPassword, etRepeatPassword, etPasswordActual;
     private ImageView security, photo;
+    private String idUser;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -100,6 +103,7 @@ public class AjustesFragment extends Fragment {
         etName.setVisibility(View.INVISIBLE);
         etPassword = view.findViewById(R.id.etPassword);
         etRepeatPassword = view.findViewById(R.id.etRepeatPassword);
+        etPasswordActual = view.findViewById(R.id.etPasswordActual);
 
         photo = view.findViewById(R.id.imageViewPhoto);
         security = view.findViewById(R.id.imageView7);
@@ -126,6 +130,7 @@ public class AjustesFragment extends Fragment {
                     tvEmail.setText(response.body().getEmail());
 
                     etName.setText(response.body().getName());
+                    idUser=response.body().getId();
                 }
             }
 
@@ -148,7 +153,7 @@ public class AjustesFragment extends Fragment {
                  * Requerir contraseña actual, para asi mander un @Header con Basi Authorization
                  *          String credentials = Credentials.basic(email, password);
                  */
-                updatePassword(view.getContext());
+                updatePassword(view.getContext(), UtilUser.getEmail(view.getContext()), idUser);
             }
         });
 
@@ -197,15 +202,20 @@ public class AjustesFragment extends Fragment {
         /*void onFragmentInteraction(Uri uri);*/
     }
 
-    public void updatePassword(Context ctx){
-        UserService service = ServiceGenerator.createService(UserService.class, UtilToken.getToken(ctx), TipoAutenticacion.BASIC);
-        Call<User> call = service.updatePassword(etPassword.getText().toString());
+    public void updatePassword(final Context ctx, String email, String idUser){
+        String credentials = Credentials.basic(email, etPasswordActual.getText().toString());
+        UserService service = ServiceGenerator.createService(UserService.class, credentials, TipoAutenticacion.BASIC);
+        Call<User> call = service.updatePassword(credentials, idUser, new PassDto(etPassword.getText().toString()));
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
                     Log.d("el cambio pass", "flama killo");
+                    Toast.makeText(ctx, "ContraseñaCambiada", Toast.LENGTH_SHORT).show();
+                    etPasswordActual.setText("");
+                    etPassword.setText("");
+                    etRepeatPassword.setText("");
                 }
             }
 

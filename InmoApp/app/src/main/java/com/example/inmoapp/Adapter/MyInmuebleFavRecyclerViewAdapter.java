@@ -22,8 +22,10 @@ import com.example.inmoapp.Generator.UtilUser;
 import com.example.inmoapp.Listener.InmuebleListener;
 import com.example.inmoapp.Model.Inmueble;
 import com.example.inmoapp.Model.ResponseContainer;
+import com.example.inmoapp.Model.User;
 import com.example.inmoapp.R;
 import com.example.inmoapp.Services.InmuebleService;
+import com.example.inmoapp.Services.UserService;
 
 import java.util.List;
 
@@ -75,10 +77,6 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
                     .into(holder.imageView);
         }
 
-        if(UtilUser.getEmail(holder.mView.getContext()) == mValues.get(position).getOwnerId().getEmail()){
-            holder.btnDeleteProperty.show();
-        }
-
         /*holder.isFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +96,7 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
                         }
                     }
 
+
                     @Override
                     public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
 
@@ -116,6 +115,25 @@ public class MyInmuebleFavRecyclerViewAdapter extends RecyclerView.Adapter<MyInm
                 }
             }
         });*/
+    }
+
+    public void getUserLogin(Context ctx){
+        UserService service = ServiceGenerator.createService(UserService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+        Call<User> call = service.getDataUser(UtilUser.getId(ctx));
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

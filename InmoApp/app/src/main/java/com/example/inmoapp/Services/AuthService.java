@@ -3,6 +3,7 @@ package com.example.inmoapp.Services;
 import com.example.inmoapp.Model.LoginResponse;
 import com.example.inmoapp.Model.PassDto;
 import com.example.inmoapp.Model.User;
+import com.example.inmoapp.Model.UserDto;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -29,5 +30,8 @@ public interface AuthService {
                                    @Part("email") RequestBody email,
                                    @Part("password") RequestBody password,
                                    @Part("name") RequestBody name);
+
+    @POST("/users")
+    Call<LoginResponse> register(@Body UserDto user);
 
 }
