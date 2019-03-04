@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://inmoap.herokuapp.com/";
-    public static String MASTER_KEY = "oDUV7u5ZzJIc81W7SR1eqFXD0qNCbPWp";
+    private static final String BASE_URL = "https://realstatev2.herokuapp.com/";
+    public static String MASTER_KEY = "hzasFUC4txHXVHHWvjkR2R7UxQ6kzBlw";
 
     // Solución temporal
     public static String jwtToken = null;
